@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+	<!-- <event name="checkout_submit_all_after">
+        <observer name="hands_brandedsms_observer_new_order" instance="HANDS\Brandedsms\Observer\NewOrder"/>
+    </event> -->
+	
+	<event name="sales_order_place_after">
+        <observer name="hands_brandedsms_observer_new_order" instance="HANDS\Brandedsms\Observer\NewOrder"/>
+    </event>
+	
+	
+	<event name="order_cancel_after">
+        <observer name="hands_brandedsms_observer_order_cancelled" instance="HANDS\Brandedsms\Observer\OrderCancelled"/>
+    </event>
+
+	<event name="sales_order_shipment_track_save_after">
+		<observer name="hands_brandedsms_observer_order_shipped" instance="HANDS\Brandedsms\Observer\OrderShipped"/>
+	</event>
+	
+    <event name="sales_order_save_after">
+        <!-- <observer name="hands_brandedsms_observer_order_cancelled" instance="HANDS\Brandedsms\Observer\OrderCancelled"/> -->
+        <observer name="hands_brandedsms_observer_order_hold" instance="HANDS\Brandedsms\Observer\OrderHold"/>
+        <observer name="hands_brandedsms_observer_order_un_hold" instance="HANDS\Brandedsms\Observer\OrderUnHold"/>
+    </event>
+    <event name="sales_order_invoice_pay">
+        <observer name="hands_brandedsms_observer_invoice_pay" instance="HANDS\Brandedsms\Observer\InvoicePay"/>
+    </event>
+    <event name="customer_register_success">
+        <observer name="hands_brandedsms_observer_register_success" instance="HANDS\Brandedsms\Observer\Registration"/>
+    </event>
+</config>

@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
+    <system>
+        <tab id="hands_brandedsms" sortOrder="2000">
+            <label>Branded SMS</label>
+        </tab>
+        <section id="hands_brandedsms_configuration" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+
+            <label>Basic Configuration</label>
+            <tab>hands_brandedsms</tab>
+            <resource>HANDS_Brandedsms::sms</resource>
+            <group id="basic_configuration" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Basic Configuration&nbsp;&nbsp;<i>Setting API Account</i>]]></label>
+                <field id="brandedsms_username" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter Branded SMS API Key</label>
+                    <comment>Enter Branded SMS API Key</comment>
+                    <tooltip>You may get the API key from your Branded SMS account</tooltip>
+                    <validate>required-entry</validate>
+                </field>
+                <!--<field id="brandedsms_password" type="password" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter SMS Alert Password</label>
+                    <comment>Enter your SMS Alert Password</comment>
+                    <tooltip>Your password must be the same as your SMS Alert password</tooltip>
+                    <validate>required-entry</validate>
+                </field>-->
+				<field id="brandedsms_new_order_sender_id" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Sender ID</label>
+                    <comment>Enter the Sender ID Of SMS Alert</comment>
+                    <tooltip>You can enter upto 11 characters</tooltip>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-11</validate>
+                    <depends><field id="brandedsms_new_order_enabled">1</field></depends>
+                </field>
+				
+				
+				<field id="brandedsms_country" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Choose Country</label>
+                    <comment>Choose Country for sending sms</comment>
+                    <source_model>HANDS\Brandedsms\Model\Config\Source\Country</source_model>
+                    <validate>required-entry</validate>
+                </field>
+				
+				
+            </group>
+        </section>
+        <section id="hands_brandedsms_orders" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Order Notifications</label>
+            <tab>hands_brandedsms</tab>
+            <resource>HANDS_Brandedsms::sms</resource>
+            <group id="new_order" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>When a New Order is Placed</label>
+                <field id="brandedsms_new_order_enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Customer Notification</label>
+                    <comment>This option will send SMS when an Order is Placed</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="brandedsms_new_order_message" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message</label>
+                    <comment>Dear {firstname} {middlename} {lastname}, We have successfully received your order {orderId} amounting {totalPrice}, Email:{customerEmail}</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-918</validate>
+                    <tooltip>You can use these placeholders: {orderId} {firstname} {middlename} {lastname} {customerEmail} {totalPrice} {countryCode}</tooltip>
+                    <depends><field id="brandedsms_new_order_enabled">1</field></depends>
+                </field>
+
+
+            </group>
+            <group id="hold_order" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>When Order is Hold</label>
+                <field id="brandedsms_hold_order_enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Customer Notification</label>
+                    <comment>This option will send SMS when an Order is Placed</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="brandedsms_hold_order_message" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message</label>
+                    <comment>Dear {firstname} {middlename} {lastname}, Your order {orderId} amounting {totalPrice} is on HOLD, Email:{customerEmail}</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-918</validate>
+                    <tooltip>You can use these placeholders: {orderId} {firstname} {middlename} {lastname} {customerEmail} {totalPrice} {countryCode}</tooltip>
+                    <depends><field id="brandedsms_hold_order_enabled">1</field></depends>
+                </field>
+
+
+            </group>
+            <group id="unhold_order" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>When Order is Unhold</label>
+                <field id="brandedsms_unhold_order_enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Customer Notification</label>
+                    <comment>This option will send SMS when an Order is Placed</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="brandedsms_unhold_order_message" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message</label>
+                    <comment>Dear {firstname} {middlename} {lastname}, Your order {orderId} amounting {totalPrice} is Unhold, Email:{customerEmail}</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-918</validate>
+                    <tooltip>You can use these placeholders: {orderId} {firstname} {middlename} {lastname} {customerEmail} {totalPrice} {countryCode}</tooltip>
+                    <depends><field id="brandedsms_unhold_order_enabled">1</field></depends>
+                </field>
+
+
+            </group>
+            <group id="cancelled_order" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>When Order is Cancelled</label>
+                <field id="brandedsms_cancelled_order_enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Customer Notification</label>
+                    <comment>This option will send SMS when an Order is Placed</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="brandedsms_cancelled_order_message" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message</label>
+                    <comment>Dear {firstname} {middlename} {lastname}, Your order {orderId} amounting {totalPrice} is Cancelled, Email:{customerEmail}.</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-918</validate>
+                    <tooltip>You can use these placeholders: {orderId} {firstname} {middlename} {lastname} {customerEmail} {totalPrice} {countryCode}</tooltip>
+                    <depends><field id="brandedsms_cancelled_order_enabled">1</field></depends>
+                </field>
+            </group>
+            
+			<group id="invoiced_order" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>When Order is Invoiced</label>
+                <field id="brandedsms_invoiced_order_enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Customer Notification</label>
+                    <comment>This option will send SMS when an Order is Placed</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="brandedsms_invoiced_order_message" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message</label>
+                    <comment>Dear {firstname} {middlename} {lastname}, Your invoice for order {orderId} amounting {totalPrice} is created successfully, Email:{customerEmail}</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-918</validate>
+                    <tooltip>You can use these placeholders: {orderId} {firstname} {middlename} {lastname} {customerEmail} {totalPrice} {countryCode}</tooltip>
+                    <depends><field id="brandedsms_invoiced_order_enabled">1</field></depends>
+                </field>
+            </group>
+			
+			<group id="shipped_order" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>When Order is Shipped</label>
+                <field id="brandedsms_shipped_order_enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Customer Notification</label>
+                    <comment>This option will send SMS when an Order is Shipped</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="brandedsms_shipped_order_message" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message</label>
+                    <comment>Dear {firstname} {middlename} {lastname}, Your order {orderId} is Shipped from {carrierName} with tracking ID {trackingId}, Email:{customerEmail}, Amount:{totalPrice}.</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-918</validate>
+                    <tooltip>You can use these placeholders: {orderId} {firstname} {middlename} {lastname} {customerEmail} {totalPrice} {countryCode}</tooltip>
+                    <depends><field id="brandedsms_shipped_order_enabled">1</field></depends>
+                </field>
+            </group>
+			
+			
+			
+		</section>
+        <section id="hands_brandedsms_admins" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Admin Configuration</label>
+            <tab>hands_brandedsms</tab>
+            <resource>HANDS_Brandedsms::sms</resource>
+            <group id="admin_configuration" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Admin Configuration</label>
+                <field id="brandedsms_admin_enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Admin Notifications</label>
+                    <comment>This option will send SMS to the admin when an Order is Placed</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="brandedsms_admin_mobile" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Admin Mobile</label>
+                    <comment>Admin Mobile(s): Enter as many numbers as you like without country code, comma seperated if multiple e.g. 30012345678,33312345678</comment>
+                    <depends><field id="brandedsms_admin_enabled">1</field></depends>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="brandedsms_new_order_admin_message" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message for New Order</label>
+                    <comment>New Order {orderId}: You have received a new order from {firstname} {middlename} {lastname}, Email:{customerEmail}, Amount:{totalPrice}</comment>
+                    <validate>validate-length minimum-length-1 maximum-length-918</validate>
+                    <tooltip>You can use these placeholders: {orderId} {firstname} {middlename} {lastname} {customerEmail} {totalPrice} {countryCode}</tooltip>
+                    <depends><field id="brandedsms_admin_enabled">1</field></depends>
+                </field>
+                <field id="brandedsms_hold_admin_message" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message for Order Hold</label>
+                    <comment>Order {orderId} is on HOLD, {firstname} {middlename} {lastname}, Email:{customerEmail}, Amount:{totalPrice}</comment>
+                    <validate>validate-length minimum-length-1 maximum-length-918</validate>
+                    <tooltip>You can use these placeholders: {orderId} {firstname} {middlename} {lastname} {customerEmail} {totalPrice} {countryCode}</tooltip>
+                    <depends><field id="brandedsms_admin_enabled">1</field></depends>
+                </field>
+                <field id="brandedsms_unhold_admin_message" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message for Order UnHold</label>
+                    <comment>Order {orderId} is now Unhold, Name: {firstname} {middlename} {lastname}, Email:{customerEmail}, Amount:{totalPrice}</comment>
+                    <validate>validate-length minimum-length-1 maximum-length-918</validate>
+                    <tooltip>You can use these placeholders: {orderId} {firstname} {middlename} {lastname} {customerEmail} {totalPrice} {countryCode}</tooltip>
+                    <depends><field id="brandedsms_admin_enabled">1</field></depends>
+                </field>
+                <field id="brandedsms_cancelled_admin_message" type="textarea" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message for Order Cancelled</label>
+                    <comment>Order {orderId} is Cancelled, Name: {firstname} {middlename} {lastname}, Email:{customerEmail}, Amount:{totalPrice}</comment>
+                    <validate>validate-length minimum-length-1 maximum-length-918</validate>
+                    <tooltip>You can use these placeholders: {orderId} {firstname} {middlename} {lastname} {customerEmail} {totalPrice} {countryCode}</tooltip>
+                    <depends><field id="brandedsms_admin_enabled">1</field></depends>
+                </field>
+                <field id="brandedsms_invoiced_admin_message" type="textarea" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message for Invoice Created</label>
+                    <comment>Invoice created successfully for order {orderId}, Name: {firstname} {middlename} {lastname}, Email:{customerEmail}, Amount:{totalPrice}</comment>
+                    <validate>validate-length minimum-length-1 maximum-length-918</validate>
+                    <tooltip>You can use these placeholders: {orderId} {firstname} {middlename} {lastname} {customerEmail} {totalPrice} {countryCode}</tooltip>
+                    <depends><field id="brandedsms_admin_enabled">1</field></depends>
+                </field>
+                <field id="brandedsms_register_admin_message" type="textarea" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message for Customer Registration</label>
+                    <comment>A new Customer has registered on your site, {firstname} {middlename} {lastname}, Email:{customerEmail}</comment>
+                    <validate>validate-length minimum-length-1 maximum-length-918</validate>
+                    <tooltip>You can use these placeholders: {orderId} {firstname} {middlename} {lastname} {customerEmail} {totalPrice} {countryCode}</tooltip>
+                    <depends><field id="brandedsms_admin_enabled">1</field></depends>
+                </field>
+				<field id="brandedsms_shipped_admin_message" type="textarea" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message for Order Shipped</label>
+                    <comment>Order {orderId} is Shipped from {carrierName} with tracking ID {trackingId}, Name: {firstname} {middlename} {lastname}, Email:{customerEmail}, Amount:{totalPrice}</comment>
+                    <validate>validate-length minimum-length-1 maximum-length-918</validate>
+                    <tooltip>You can use these placeholders: {orderId} {firstname} {middlename} {lastname} {customerEmail} {totalPrice} {countryCode}</tooltip>
+                    <depends><field id="brandedsms_admin_enabled">1</field></depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

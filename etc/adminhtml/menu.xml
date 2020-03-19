@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+{{License}}
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="HANDS_Brandedsms::brandedsms" title="Branded SMS" module="HANDS_Brandedsms" sortOrder="11" resource="HANDS_Brandedsms::brandedsms"/>
+        <add id="HANDS_Brandedsms::brandedsms_head" title="Settings" module="HANDS_Brandedsms" sortOrder="40"
+             parent="HANDS_Brandedsms::brandedsms" resource="HANDS_Brandedsms::brandedsms"/>
+        <add id="HANDS_Brandedsms::config" title="Configuration" module="HANDS_Brandedsms" sortOrder="50"
+             action="adminhtml/system_config/edit/section/hands_brandedsms_configuration"
+             resource="HANDS_Brandedsms::brandedsms" parent="HANDS_Brandedsms::brandedsms_head" />
+    </menu>
+</config>
